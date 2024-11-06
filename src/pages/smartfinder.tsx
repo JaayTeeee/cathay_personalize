@@ -1,12 +1,12 @@
 import ShipmentDescription from "../components/ui/ShipmentDescription";
 import React from "react";
 
-const SmartSuggestion: React.FC = () => {
+const SmartFinder: React.FC = () => {
     return (
         <div className="w-full bg-cyan-900">
-            <ShipmentDescription shipmentId={['wefwefwefwefwe','wefwefwefwefwef']} />
+            <ShipmentDescription shipmentId={['CODE123','HKG']} />
         </div>
     );
 };
 
-export default SmartSuggestion;
+export default SmartFinder;

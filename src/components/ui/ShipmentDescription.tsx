@@ -3,40 +3,51 @@ import React, { useEffect, useState } from "react";
 
 export default function ShipmentDescription({ shipmentId }) {
     // State to hold input values
-    const [mawb, setMawb] = useState('');
-    const [dept, setDept] = useState('');
-    const [dest, setDest] = useState('');
-    const [hawb, setHawb] = useState('');
-    const [pcs, setPcs] = useState('');
+    const [shipmentInfo, setShipmentInfo] = useState({
+        id: "",
+        shipping: "",
+        departure: "",
+        destination: "",
+        pieces: "",
+        status: "False",
+    });
 
     // Effect to fetch shipment data when the component mounts
     useEffect(() => {
         const fetchShipmentData = async () => {
             try {
-                const response = await fetch('/api/shipment', {
-                    method: 'POST',
+
+                // Construct query string from search terms
+                const queryString = new URLSearchParams({ searchTerms: JSON.stringify(shipmentId) }).toString();
+                
+                const response = await fetch(`/api/shipment?${queryString}`, {
+                    method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ searchTerms: [shipmentId] }), // Pass shipmentId as search term
                 });
-
+                
+                // Check if response is okay
                 if (!response.ok) {
-                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const shipmentDataArray = await response.json();
-                if (shipmentDataArray.length > 0) {
-                    const shipmentData = shipmentDataArray[0]; // Assuming we get an array of records
-                    console.log('Fetched Shipment Data:', shipmentData);
+                const data = await response.json();
+                console.log("DATA: " ,data)
+                
+                const shipmentData = data['data'][0]; // Assuming we get an array of records
+                console.log('Fetched Shipment Data:', shipmentData);
 
-                    // Set state with fetched data
-                    setMawb(shipmentData.mawb || '');
-                    setDept(shipmentData.dept || '');
-                    setDest(shipmentData.dest || '');
-                    setHawb(shipmentData.hawb || '');
-                    setPcs(shipmentData.pcs || '');
-                }
+                // Set state with fetched data
+                setShipmentInfo({
+                    id: shipmentData.id || '',
+                    departure: shipmentData.departure || '',
+                    destination: shipmentData.destination || '',
+                    pieces: shipmentData.pieces || '',
+                    shipping: shipmentData.shipping || '',
+                    status: shipmentData.status || 'False',
+                });
+                
             } catch (error) {
                 console.error('Error fetching shipment data:', error);
             }
@@ -51,53 +62,53 @@ export default function ShipmentDescription({ shipmentId }) {
             <div className={`p-4 bg-blue-50`}>
                 <div className="grid grid-cols-3 gap-4 p-4 bg-gray-100">
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">MAWB:</Text>
+                        <Text as="span" className="font-semibold text-black-900">ID:</Text>
                         <input
                             type="text"
-                            value={mawb}
-                            onChange={(e) => setMawb(e.target.value)} // Allow editing if needed
+                            value={shipmentInfo.id}
+                            onChange={(e) => setShipmentInfo(prev => ({ ...prev, code: e.target.value }))} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
-                            placeholder="Enter MAWB"
+                            placeholder="Enter MAWB" // Placeholder value can be different
                         />
                     </div>
                     <div className="flex items-center mb-4">
                         <Text as="span" className="font-semibold text-black-900">DEPT:</Text>
                         <input
                             type="text"
-                            value={dept}
-                            onChange={(e) => setDept(e.target.value)} // Allow editing if needed
+                            value={shipmentInfo.departure}
+                            onChange={(e) => setShipmentInfo(prev => ({ ...prev, departure: e.target.value }))} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
-                            placeholder="Enter DEPT"
+                            placeholder="Enter DEPT" // Placeholder value can be different
                         />
                     </div>
                     <div className="flex items-center mb-4">
                         <Text as="span" className="font-semibold text-black-900">DEST:</Text>
                         <input
                             type="text"
-                            value={dest}
-                            onChange={(e) => setDest(e.target.value)} // Allow editing if needed
+                            value={shipmentInfo.destination}
+                            onChange={(e) => setShipmentInfo(prev => ({ ...prev, destination: e.target.value }))} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
-                            placeholder="Enter DEST"
+                            placeholder="Enter DEST" // Placeholder value can be different
                         />
                     </div>
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">HAWB:</Text>
+                        <Text as="span" className="font-semibold text-black-900">PIECES:</Text>
                         <input
                             type="text"
-                            value={hawb}
-                            onChange={(e) => setHawb(e.target.value)} // Allow editing if needed
+                            value={shipmentInfo.pieces}
+                            onChange={(e) => setShipmentInfo(prev => ({ ...prev, pieces: e.target.value }))} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
-                            placeholder="Enter HAWB"
+                            placeholder="Enter HAWB" // Placeholder value can be different
                         />
                     </div>
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">PCS:</Text>
+                        <Text as="span" className="font-semibold text-black-900">STATUS:</Text>
                         <input
                             type="text"
-                            value={pcs}
-                            onChange={(e) => setPcs(e.target.value)} // Allow editing if needed
+                            value={shipmentInfo.status}
+                            onChange={(e) => setShipmentInfo(prev => ({ ...prev, status: e.target.value }))} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
-                            placeholder="Enter PCS"
+                            placeholder="Enter PCS" // Placeholder value can be different
                         />
                     </div>
                 </div>
