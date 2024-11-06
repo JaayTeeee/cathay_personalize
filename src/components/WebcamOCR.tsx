@@ -95,11 +95,7 @@ const WebcamOCR: React.FC = () => {
             </div>
             <div>
                 <h2>Text Blocks:</h2>
-                <ul>
-                    {textBlock.split('\n').map((text, index) => (
-                        <li key={index}>{text}</li>
-                    ))}
-                </ul>
+                    {textBlock}
             </div>
         </div>
     );
