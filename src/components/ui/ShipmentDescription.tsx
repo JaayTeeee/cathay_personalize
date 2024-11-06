@@ -4,12 +4,12 @@ import React, { useEffect, useState } from "react";
 export default function ShipmentDescription({ shipmentId }) {
     // State to hold input values
     const [shipmentInfo, setShipmentInfo] = useState({
-        id: "",
+        id: null,
         shipping: "",
-        departure: "",
+        origin: "",
         destination: "",
         pieces: "",
-        status: "False",
+        status: "Null",
     });
 
     // Effect to fetch shipment data when the component mounts
@@ -40,12 +40,12 @@ export default function ShipmentDescription({ shipmentId }) {
 
                 // Set state with fetched data
                 setShipmentInfo({
-                    id: shipmentData.id || '',
-                    departure: shipmentData.departure || '',
+                    id: shipmentData.id || null,
+                    origin: shipmentData.origin || '',
                     destination: shipmentData.destination || '',
                     pieces: shipmentData.pieces || '',
                     shipping: shipmentData.shipping || '',
-                    status: shipmentData.status || 'False',
+                    status: shipmentData.status || 'Null',
                 });
                 
             } catch (error) {
@@ -62,27 +62,27 @@ export default function ShipmentDescription({ shipmentId }) {
             <div className={`p-4 bg-blue-50`}>
                 <div className="grid grid-cols-3 gap-4 p-4 bg-gray-100">
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">ID:</Text>
+                        <Text as="span" className="font-semibold text-black-900">Shipping:</Text>
                         <input
                             type="text"
-                            value={shipmentInfo.id}
+                            value={shipmentInfo.shipping}
                             onChange={(e) => setShipmentInfo(prev => ({ ...prev, code: e.target.value }))} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
                             placeholder="Enter MAWB" // Placeholder value can be different
                         />
                     </div>
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">DEPT:</Text>
+                        <Text as="span" className="font-semibold text-black-900">Origin:</Text>
                         <input
                             type="text"
-                            value={shipmentInfo.departure}
-                            onChange={(e) => setShipmentInfo(prev => ({ ...prev, departure: e.target.value }))} // Allow editing if needed
+                            value={shipmentInfo.origin}
+                            onChange={(e) => setShipmentInfo(prev => ({ ...prev, origin: e.target.value }))} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
                             placeholder="Enter DEPT" // Placeholder value can be different
                         />
                     </div>
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">DEST:</Text>
+                        <Text as="span" className="font-semibold text-black-900">Destination:</Text>
                         <input
                             type="text"
                             value={shipmentInfo.destination}
@@ -92,7 +92,7 @@ export default function ShipmentDescription({ shipmentId }) {
                         />
                     </div>
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">PIECES:</Text>
+                        <Text as="span" className="font-semibold text-black-900">Pieces:</Text>
                         <input
                             type="text"
                             value={shipmentInfo.pieces}
@@ -102,7 +102,7 @@ export default function ShipmentDescription({ shipmentId }) {
                         />
                     </div>
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">STATUS:</Text>
+                        <Text as="span" className="font-semibold text-black-900">Status:</Text>
                         <input
                             type="text"
                             value={shipmentInfo.status}

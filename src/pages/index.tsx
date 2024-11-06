@@ -2,7 +2,6 @@ import localFont from "next/font/local";
 import Head from "next/head";
 import { Html5Qrcode } from "html5-qrcode";
 import React, { useEffect, useState } from 'react';
-import db from './database';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,11 +21,11 @@ const App = () => {
   const [scannedCode, setScannedCode] = useState<string | null>(null);
   const [shipmentInfo, setShipmentInfo] = useState({
     id: null,
-    code: "",
-    departure: "",
+    origin: "",
     destination: "",
+    shipping: "",
     pieces: "",
-    status: "Null",
+    status: "",
   });
 
   useEffect(() => {
@@ -81,10 +80,10 @@ const App = () => {
         
         setShipmentInfo({
           id: result.data.id,
-          code: result.data.code,
-          departure: result.data.departure,
+          origin: result.data.origin,
           destination: result.data.destination,
-          pieces: result.data.totalPcs,
+          shipping: result.data.shipping,
+          pieces: result.data.pieces,
           status: "Updated"
         });
       } else {
@@ -131,10 +130,10 @@ const App = () => {
           }}
           >
         </div>
-        <span className="col-start-3 col-span-2 row-start-1 text-3xl text-white flex items-center">ID: {shipmentInfo.id || "N/A"}</span>
-        <span className="col-start-3 col-span-2 row-start-2 text-3xl text-white flex items-center">Code: {shipmentInfo.code || "N/A"}</span>
-        <span className="col-start-3 row-start-3 text-3xl text-white flex items-center">Departure: {shipmentInfo.departure}</span>
-        <span className="col-start-3 row-start-4 text-3xl text-white flex items-center">Destination: {shipmentInfo.destination}</span>
+        <span className="col-start-3 col-span-2 row-start-1 text-3xl text-white flex items-center">ID: {shipmentInfo.id}</span>
+        <span className="col-start-3 col-span-2 row-start-2 text-3xl text-white flex items-center">Origin: {shipmentInfo.origin}</span>
+        <span className="col-start-3 row-start-3 text-3xl text-white flex items-center">Destination: {shipmentInfo.destination}</span>
+        <span className="col-start-3 row-start-4 text-3xl text-white flex items-center">Shipping: {shipmentInfo.shipping}</span>
         <span className="col-start-3 row-start-5 text-3xl text-white flex items-center">Pieces: {shipmentInfo.pieces}</span>
           <div className="col-start-1 col-span-3 row-start-6 flex justify-center items-center">
             <input className="text-4xl text-black rounded-full"
@@ -148,7 +147,7 @@ const App = () => {
               }}>
             </input>
           </div>
-          <span className="col-start-4 row-start-6 text-3xl text-white flex justify-center items-center">Status: {shipmentInfo.status}</span>
+          <span className="col-start-4 row-start-6 text-3xl text-white m-10 flex items-center">Status: {shipmentInfo.status}</span>
       </div>
   );
 }
