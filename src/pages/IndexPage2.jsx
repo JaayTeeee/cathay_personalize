@@ -1,5 +1,5 @@
 import {Text} from "../../components/ui";
-import DatabaseSection from "./DatabaseSection";
+import DatabaseSection from "../components/DataBaseSection";
 import React from "react";
 
 export default function DataBasePage() {
