@@ -2,7 +2,6 @@ import localFont from "next/font/local";
 import Head from "next/head";
 import { Html5Qrcode } from "html5-qrcode";
 import React, { useEffect, useState } from 'react';
-import db from './database';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
