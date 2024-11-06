@@ -1,6 +1,4 @@
-import React, { useRef, useState } from 'react';
-import Tesseract from 'tesseract.js';
-import { ImageAnalysisClient } from '@azure-rest/ai-vision-image-analysis';
+import React, { useRef, useState, useEffect } from 'react';
 import createClient from '@azure-rest/ai-vision-image-analysis';
 import { AzureKeyCredential } from '@azure/core-auth';
 // Load the .env file if it exists
@@ -16,11 +14,20 @@ const WebcamOCR: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [textBlock, setTextBlock] = useState<string>('');
 
+    // Automatically start the camera when the component mounts
+    useEffect(() => {
+        startCamera();
+    }, []);
+
     const startCamera = async () => {
         if (videoRef.current) {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            videoRef.current.srcObject = stream;
-            videoRef.current.play();
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                videoRef.current.srcObject = stream;
+                videoRef.current.play();
+            } catch (error) {
+                console.error("Error accessing webcam: ", error);
+            }
         }
     };
 
@@ -36,53 +43,42 @@ const WebcamOCR: React.FC = () => {
             }
         }
     };
+
     const analyzeImage = async (imageData: string) => {
-        // Step 1: Decode the base64 image data into binary format
-        const base64Image = imageData.split(',')[1]; // Get the base64 string without the prefix
-        const binaryImage = atob(base64Image); // Decode base64 to binary
-        const byteArray = new Uint8Array(binaryImage.length); // Create a byte array
+        const base64Image = imageData.split(',')[1];
+        const binaryImage = atob(base64Image);
+        const byteArray = new Uint8Array(binaryImage.length);
         for (let i = 0; i < binaryImage.length; i++) {
-            byteArray[i] = binaryImage.charCodeAt(i); // Populate byte array with binary data
+            byteArray[i] = binaryImage.charCodeAt(i);
         }
-    
-        const features = [
-            'Caption',
-            'Read'
-        ];
-    
-        // Step 3: Make the POST request with the binary image data
+
+        const features = ['Caption', 'Read'];
+
         try {
             const result = await client.path('/imageanalysis:analyze').post({
                 body: byteArray,
-                queryParameters: {
-                    features: features
-                },
+                queryParameters: { features },
                 contentType: 'application/octet-stream'
             });
-    
+
             const iaResult = result.body;
-    
-            // Check for caption result
+
             if (iaResult.captionResult) {
                 console.log(`Caption: ${iaResult.captionResult.text} (confidence: ${iaResult.captionResult.confidence})`);
             }
-    
-            // Extract text lines from read results
+
             if (iaResult.readResult) {
                 console.log("README:", iaResult.readResult);
                 const textLines = [];
-    
-                // Iterate through blocks
+
                 iaResult.readResult.blocks.forEach(block => {
-                    // Iterate through lines in each block
                     block.lines.forEach(line => {
-                        console.log(line.text); // Log each line of text
-                        textLines.push(line.text); // Collect text lines into an array
+                        console.log(line.text);
+                        textLines.push(line.text);
                     });
                 });
-    
-                // Optionally, you can set the collected text lines to the state
-                setTextBlock(textLines.join('\n')); // Join text lines with new line for display
+
+                setTextBlock(textLines.join('\n'));
             }
         } catch (error) {
             console.error("There was an error!", error);
@@ -95,14 +91,14 @@ const WebcamOCR: React.FC = () => {
             <div className='flex flex-col vertical-center'>
                 <video ref={videoRef} width="640" height="480" autoPlay></video>
                 <button onClick={captureImage}>Capture & Analyze Image</button>
-                <button onClick={startCamera}>Start Camera</button>
                 <canvas ref={canvasRef} width="640" height="480" style={{ display: 'none' }}></canvas>
             </div>
             <div>
-
                 <h2>Text Blocks:</h2>
                 <ul>
-                    {textBlock}
+                    {textBlock.split('\n').map((text, index) => (
+                        <li key={index}>{text}</li>
+                    ))}
                 </ul>
             </div>
         </div>
