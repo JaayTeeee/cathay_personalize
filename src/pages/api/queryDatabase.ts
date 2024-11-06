@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import sqlite3 from 'sqlite3';
 import path from 'path';
 
-const dbPath = path.resolve(process.cwd(), 'src/pages/shipments.db');
+const dbPath = path.resolve(process.cwd(), 'src/pages/cargo_database.db');
 const db = new sqlite3.Database(dbPath);
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
@@ -13,7 +13,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  db.get('SELECT * FROM shipments WHERE id = ?', [id], (err, row) => {
+  db.get('SELECT * FROM Cargo WHERE id = ?', [id], (err, row) => {
     if (err) {
       console.error('Database query error:', err.message);
       res.status(500).json({ error: 'Error querying the database', details: err.message });

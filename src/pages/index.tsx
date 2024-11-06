@@ -21,9 +21,9 @@ const App = () => {
   const [scannedCode, setScannedCode] = useState<string | null>(null);
   const [shipmentInfo, setShipmentInfo] = useState({
     id: null,
-    code: "",
-    departure: "",
+    origin: "",
     destination: "",
+    shipping: "",
     pieces: "",
     status: "",
   });
@@ -80,10 +80,10 @@ const App = () => {
         
         setShipmentInfo({
           id: result.data.id,
-          code: result.data.code,
-          departure: result.data.departure,
+          origin: result.data.origin,
           destination: result.data.destination,
-          pieces: result.data.totalPcs,
+          shipping: result.data.shipping,
+          pieces: result.data.pieces,
           status: "Updated"
         });
       } else {
@@ -131,9 +131,9 @@ const App = () => {
           >
         </div>
         <span className="col-start-3 col-span-2 row-start-1 text-3xl text-white flex items-center">ID: {shipmentInfo.id}</span>
-        <span className="col-start-3 col-span-2 row-start-2 text-3xl text-white flex items-center">Code: {shipmentInfo.code}</span>
-        <span className="col-start-3 row-start-3 text-3xl text-white flex items-center">Departure: {shipmentInfo.departure}</span>
-        <span className="col-start-3 row-start-4 text-3xl text-white flex items-center">Destination: {shipmentInfo.destination}</span>
+        <span className="col-start-3 col-span-2 row-start-2 text-3xl text-white flex items-center">Origin: {shipmentInfo.origin}</span>
+        <span className="col-start-3 row-start-3 text-3xl text-white flex items-center">Destination: {shipmentInfo.destination}</span>
+        <span className="col-start-3 row-start-4 text-3xl text-white flex items-center">Shipping: {shipmentInfo.shipping}</span>
         <span className="col-start-3 row-start-5 text-3xl text-white flex items-center">Pieces: {shipmentInfo.pieces}</span>
           <div className="col-start-1 col-span-3 row-start-6 flex justify-center items-center">
             <input className="text-4xl text-black rounded-full"
