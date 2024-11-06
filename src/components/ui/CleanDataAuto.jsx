@@ -1,5 +1,5 @@
-const rawData = ['MAWB:"thing"', 'HAWB:"thing"', 'DEPT:"thing"', 'DEST:"thing"', 'PCS:"thing"'];
-const itemsToRemove = ['MAWB', 'HAWB'];
+const rawData = ['ID:"thing"', 'Origin:"thing"', 'Destination:"thing"', 'Shipping:"thing"', 'Pieces:"thing"'];
+const itemsToRemove = ['ID', 'Origin','Destination','Shipping','Pieces'];
 
 const cleanedData = rawData.map(item => {
   let cleanedItem = item;
