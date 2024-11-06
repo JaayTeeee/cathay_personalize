@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 
 export default function ShipmentDescription({ shipmentId }) {
     // State to hold input values
-    const [mawb, setMawb] = useState('');
-    const [dept, setDept] = useState('');
-    const [dest, setDest] = useState('');
-    const [hawb, setHawb] = useState('');
-    const [pcs, setPcs] = useState('');
+    const [id, setId] = useState('');
+    const [origin, setOrigin] = useState('');
+    const [destination, setDestination] = useState('');
+    const [shipping, setShipping] = useState('');
+    const [pieces, setPieces] = useState('');
 
     // Effect to fetch shipment data when the component mounts
     useEffect(() => {
@@ -31,11 +31,11 @@ export default function ShipmentDescription({ shipmentId }) {
                     console.log('Fetched Shipment Data:', shipmentData);
 
                     // Set state with fetched data
-                    setMawb(shipmentData.mawb || '');
-                    setDept(shipmentData.dept || '');
-                    setDest(shipmentData.dest || '');
-                    setHawb(shipmentData.hawb || '');
-                    setPcs(shipmentData.pcs || '');
+                    setId(shipmentData.id || '');
+                    setOrigin(shipmentData.origin || '');
+                    setDestination(shipmentData.destination || '');
+                    setShipping(shipmentData.shipping || '');
+                    setPIeces(shipmentData.pieces || '');
                 }
             } catch (error) {
                 console.error('Error fetching shipment data:', error);
@@ -51,53 +51,53 @@ export default function ShipmentDescription({ shipmentId }) {
             <div className={`p-4 bg-blue-50`}>
                 <div className="grid grid-cols-3 gap-4 p-4 bg-gray-100">
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">MAWB:</Text>
+                        <Text as="span" className="font-semibold text-black-900">ID:</Text>
                         <input
                             type="text"
-                            value={mawb}
-                            onChange={(e) => setMawb(e.target.value)} // Allow editing if needed
+                            value={id}
+                            onChange={(e) => setId(e.target.value)} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
-                            placeholder="Enter MAWB"
+                            placeholder="Enter ID"
                         />
                     </div>
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">DEPT:</Text>
+                        <Text as="span" className="font-semibold text-black-900">Origin:</Text>
                         <input
                             type="text"
-                            value={dept}
+                            value={origin}
                             onChange={(e) => setDept(e.target.value)} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
-                            placeholder="Enter DEPT"
+                            placeholder="Enter Origin"
                         />
                     </div>
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">DEST:</Text>
+                        <Text as="span" className="font-semibold text-black-900">Destination:</Text>
                         <input
                             type="text"
-                            value={dest}
+                            value={destination}
                             onChange={(e) => setDest(e.target.value)} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
-                            placeholder="Enter DEST"
+                            placeholder="Enter Destination"
                         />
                     </div>
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">HAWB:</Text>
+                        <Text as="span" className="font-semibold text-black-900">Shipping:</Text>
                         <input
                             type="text"
-                            value={hawb}
+                            value={shipping}
                             onChange={(e) => setHawb(e.target.value)} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
-                            placeholder="Enter HAWB"
+                            placeholder="Enter Shipping"
                         />
                     </div>
                     <div className="flex items-center mb-4">
-                        <Text as="span" className="font-semibold text-black-900">PCS:</Text>
+                        <Text as="span" className="font-semibold text-black-900">Pieces:</Text>
                         <input
                             type="text"
-                            value={pcs}
+                            value={pieces}
                             onChange={(e) => setPcs(e.target.value)} // Allow editing if needed
                             className="ml-2 p-2 border border-gray-300 rounded"
-                            placeholder="Enter PCS"
+                            placeholder="Enter Pieces"
                         />
                     </div>
                 </div>
