@@ -25,7 +25,7 @@ const App = () => {
     departure: "",
     destination: "",
     pieces: "",
-    status: "Null",
+    status: "",
   });
 
   useEffect(() => {
@@ -130,8 +130,8 @@ const App = () => {
           }}
           >
         </div>
-        <span className="col-start-3 col-span-2 row-start-1 text-3xl text-white flex items-center">ID: {shipmentInfo.id || "N/A"}</span>
-        <span className="col-start-3 col-span-2 row-start-2 text-3xl text-white flex items-center">Code: {shipmentInfo.code || "N/A"}</span>
+        <span className="col-start-3 col-span-2 row-start-1 text-3xl text-white flex items-center">ID: {shipmentInfo.id}</span>
+        <span className="col-start-3 col-span-2 row-start-2 text-3xl text-white flex items-center">Code: {shipmentInfo.code}</span>
         <span className="col-start-3 row-start-3 text-3xl text-white flex items-center">Departure: {shipmentInfo.departure}</span>
         <span className="col-start-3 row-start-4 text-3xl text-white flex items-center">Destination: {shipmentInfo.destination}</span>
         <span className="col-start-3 row-start-5 text-3xl text-white flex items-center">Pieces: {shipmentInfo.pieces}</span>
@@ -147,7 +147,7 @@ const App = () => {
               }}>
             </input>
           </div>
-          <span className="col-start-4 row-start-6 text-3xl text-white flex justify-center items-center">Status: {shipmentInfo.status}</span>
+          <span className="col-start-4 row-start-6 text-3xl text-white m-10 flex items-center">Status: {shipmentInfo.status}</span>
       </div>
   );
 }
