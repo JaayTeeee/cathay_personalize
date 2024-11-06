@@ -1,5 +1,6 @@
-import Image from "next/image";
 import localFont from "next/font/local";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -13,103 +14,65 @@ const geistMono = localFont({
 });
 
 export default function Home() {
+  const router = useRouter();
+
+  const handleScan = () => {
+    router.push("/scan");
+  };
+
   return (
     <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
+      className={`${geistSans.variable} ${geistMono.variable} grid grid-cols-4 w-full h-screen p-5`}
+      style={{
+        backgroundColor: "rgb(0, 101, 100)",
+        gridTemplateRows: "16% 16% 16% 16% 16% 20%",}}
     >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <Head>
+        <title>
+          CargoVision
+        </title>
+      </Head>
+        <h1 className="text-5xl text-white col-start-4 row-start-1 row-span-2 flex justify-center items-center">CargoVision</h1>
+        <button
+          className="col-start-4 row-start-3 row-span-3 text-5xl mb-7 text-black rounded-xl flex justify-center
+          items-center transition duration-300 ease-in-out transform hover:scale-105 shadow"
+          style={{ backgroundColor: 'rgb(220, 211, 188)'}}
+          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = 'rgb(235, 237, 236)')}
+          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'rgb(220, 211, 188)')}
+          onClick={handleScan}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Scan
+        </button>
+        <div
+          className="col-start-1 col-span-2 row-start-1 row-span-5 justify-center items-center flex"
+          style={{
+            backgroundColor: "#DCD3BC",
+            width: "95%",
+            height: "95%",
+            borderRadius: "10px",
+            padding: "20px",
+          }}
           >
-            Read our docs
-          </a>
+          <span className="text-6xl">Scanner Shit</span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <span className="col-start-3 col-span-2 row-start-1 text-3xl text-white flex items-center">MAWB: 123456789</span>
+          <span className="col-start-3 col-span-2 row-start-2 text-3xl text-white flex items-center">HAWB: 987654321</span>
+          <span className="col-start-3 row-start-3 text-3xl text-white flex items-center">Departure: MNL</span>
+          <span className="col-start-3 row-start-4 text-3xl text-white flex items-center">Destination: HKG</span>
+          <span className="col-start-3 row-start-5 text-3xl text-white flex items-center">Pieces: 15</span>
+          <div className="col-start-1 col-span-3 row-start-6 flex justify-center items-center">
+            <input className="text-4xl text-black rounded-full"
+              type="text" 
+              placeholder="Search"
+              style={{
+                backgroundColor: "rgb(220, 211, 188)",
+                width: "100%",
+                height: "70%",
+                textAlign: "center",
+              }}>
+            </input>
+          </div>
+          <span className="col-start-4 row-start-6 text-3xl text-white flex justify-center items-center">Status: Null</span>
+      </div>
   );
 }
