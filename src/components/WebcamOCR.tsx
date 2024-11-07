@@ -106,10 +106,25 @@ const WebcamOCR: React.FC<WebcamOCRProps> = ({ setExtractedTexts, setIsLoading, 
 
     return (
         <div>
-            <h1>Webcam OCR</h1>
             <div className='flex flex-col vertical-center'>
                 <video ref={videoRef} width="640" height="480" autoPlay></video>
-                <button onClick={captureImage}>Capture & Analyze Image</button>
+                <button 
+    onClick={captureImage} 
+    style={{
+        backgroundColor: '#4CAF50', 
+        color: 'white',              
+        padding: '10px 20px',       
+        border: 'none',             
+        borderRadius: '5px',       
+        cursor: 'pointer',          
+        fontSize: '16px',          
+        transition: 'background-color 0.3s ease' 
+    }}
+    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#45a049'} 
+    onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#4CAF50'}  
+>
+    Capture & Analyze Image
+</button>
                 <canvas ref={canvasRef} width="640" height="480" style={{ display: 'none' }}></canvas>
             </div>
         </div>

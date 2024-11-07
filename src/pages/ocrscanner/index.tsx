@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ShipmentDescription from "../components/ui/ShipmentDescription";
+import ShipmentDescription from "../../components/ui/ShipmentDescription";
 import WebcamOCR from "@/components/WebcamOCR";
 
 const SmartFinder: React.FC = () => {
