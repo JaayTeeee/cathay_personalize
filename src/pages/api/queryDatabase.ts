@@ -13,7 +13,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  db.get('SELECT * FROM shipments WHERE id = ?', [id], (err, row) => {
+  db.get('SELECT * FROM Cargo WHERE id = ?', [id], (err, row) => {
     if (err) {
       console.error('Database query error:', err.message);
       res.status(500).json({ error: 'Error querying the database', details: err.message });
